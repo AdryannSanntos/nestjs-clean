@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:3333
+@accessToken = {{authenticate.response.body.access_token}}
+
+# @name create-account
+POST {{baseUrl}}/accounts
+Content-Type: application/json
+
+{
+  "name": "Adryan Santos",
+  "email": "adryansantoss@gmail.com",
+  "password": "12345678"
+}
+
+###
+
+# @name authenticate
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+  "email": "adryansantoss@gmail.com",
+  "password": "12345678"
+}
+
+###
+
+# @name create-question
+POST {{baseUrl}}/questions
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "title": "Nova perguntaa",
+  "content": "Conteúdo da pergunta"
+}
+
+###
+
+# @name fetch-recent-questions
+GET {{baseUrl}}/questions?page=1&perPage=20
+Authorization: Bearer {{accessToken}}
